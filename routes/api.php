@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/record/',[RecordController::class,'getRecord']);
 
+Route::get('/click',[RecordController::class,'updateClicks']);
+
+
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
