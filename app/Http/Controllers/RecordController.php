@@ -47,7 +47,7 @@ class RecordController extends Controller
     {
         //Get the current number of clicks and increment it
 
-        DB::table('Analytics')->increment('clicks');
+        DB::table('analytics')->increment('clicks');
 
         return response()->json(200);
 
