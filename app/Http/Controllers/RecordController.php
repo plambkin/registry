@@ -43,6 +43,16 @@ class RecordController extends Controller
 
     }
 
+    public function updateClicks()
+    {
+        //Get the current number of clicks and increment it
+
+        DB::table('Analytics')->increment('clicks');
+
+        return response()->json(200);
+
+    }
+
     private function buildRecord($user)
     {
         return [
