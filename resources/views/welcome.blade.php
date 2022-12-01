@@ -118,8 +118,8 @@
         methods: {
 
             getRegistry: function () {
-                console.log('http://www.registry.test/api/record?email=' + this.email + '&institute=' + this.institute);
-                axios.get('http://www.registry.test/api/record',
+                console.log('https://www.sportspatrons.com/api/record?email=' + this.email + '&institute=' + this.institute);
+                axios.get('https://www.sportspatrons.com/api/record',
                     { params:
                             { email: this.email, institute: this.institute }})
                     .then(response => (this.info = response.data, this.fname = response.data.fName,
