@@ -51,7 +51,7 @@ class RecordController extends Controller
 
         $clicks = DB::table('analytics')->value('clicks');
 
-        Log::alert('Just incremented the clicks to $clicks');
+        Log::alert("Just incremented the clicks to $clicks");
 
         return response()->json(200);
 
