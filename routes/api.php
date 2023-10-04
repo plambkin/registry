@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/record/',[RecordController::class,'getRecord']);
 
-Route::get('/qualification/',[QualificationController::Controller::class,'getRecord']);
+Route::get('/qualification/',[QualificationController::class,'getRecord']);
 
 Route::get('/click',[RecordController::class,'updateClicks']);
 
