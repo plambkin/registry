@@ -66,12 +66,12 @@ class QualificationController extends Controller
         }
 
         if (!empty($user->course2text)) {
-            $finalString .= "<br>" . $user->course2text;
+            $finalString .= "+" . $user->course2text;
         }
 
 
         if (!empty($user->course3text)) {
-            $finalString .= "<br>" . $user->course3text;
+            $finalString .= "+" . $user->course3text;
         }
 
         IF ($user->course2text)
