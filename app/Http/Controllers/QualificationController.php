@@ -57,11 +57,29 @@ class QualificationController extends Controller
 
     private function buildRecord($user)
     {
+        // We need to aggregate all courses a person did into one string
+
+        $finalString = "";
+
+        if (!empty($user->course1text)) {
+            $finalString .= $user->course1text;
+        }
+
+        if (!empty($user->course2text)) {
+            $finalString .= "," . $user->course2text;
+        }
+
+
+        if (!empty($user->course3text)) {
+            $finalString .= "," . $user->course3text;
+        }
+
+
         return [
             'fName'=>$user->fname,
             'lName'=>$user->lname,
             'course'=>$user->course1,
-            'course1Text'=>$user->course1text,
+            'course1Text'=>$finalString,
             'wambastatus'=>$user->wambastatus,
             'completion'=>$user->completion
         ];
