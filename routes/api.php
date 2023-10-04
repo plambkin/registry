@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\RecordController;
+use App\Http\Controllers\QualificationControllerController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
