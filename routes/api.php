@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\RecordController;
-use App\Http\Controllers\QualificationControllerController;
+use App\Http\Controllers\QualificationController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
