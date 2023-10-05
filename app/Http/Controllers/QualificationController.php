@@ -74,9 +74,6 @@ class QualificationController extends Controller
             $finalString .= "+" . $user->course3text;
         }
 
-        IF ($user->course2text)
-
-
         return [
             'fName'=>$user->fname,
             'lName'=>$user->lname,
