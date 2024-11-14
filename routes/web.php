@@ -20,5 +20,8 @@ Route::get('/', [RecordController::class, 'testRetrieveRecord']);
 
 Route::get('/testdb', [RecordController::class, 'testdb']);
 
+Route::get('/listRecords', [RecordController::class, 'listRecords'])->name('listRecords');
+
+
 
 require __DIR__ . '/auth.php';

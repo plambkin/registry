@@ -70,7 +70,7 @@ abstract class TestCase
     {
         $systemOutput  = null;
         $systemOutputs = $node->xpath('system-out');
-        if ($systemOutputs !== []) {
+        if ($systemOutputs !== null && $systemOutputs !== []) {
             assert(count($systemOutputs) === 1);
             $systemOutput = (string) current($systemOutputs);
         }
@@ -83,13 +83,15 @@ abstract class TestCase
             return $node;
         };
         $getType      = static function (SimpleXMLElement $node): string {
-            $attributes = iterator_to_array($node->attributes());
+            $element = $node->attributes();
+            assert($element !== null);
+            $attributes = iterator_to_array($element);
             assert($attributes !== []);
 
             return (string) $attributes['type'];
         };
 
-        if (($errors = $node->xpath('error')) !== []) {
+        if (($errors = $node->xpath('error')) !== null && $errors !== []) {
             $error = $getFirstNode($errors);
             $type  = $getType($error);
             $text  = (string) $error;
@@ -107,7 +109,7 @@ abstract class TestCase
                     (float) $node['time'],
                     $type,
                     $text,
-                    $systemOutput
+                    $systemOutput,
                 );
             }
 
@@ -120,11 +122,11 @@ abstract class TestCase
                 (float) $node['time'],
                 $type,
                 $text,
-                $systemOutput
+                $systemOutput,
             );
         }
 
-        if (($warnings = $node->xpath('warning')) !== []) {
+        if (($warnings = $node->xpath('warning')) !== null && $warnings !== []) {
             $warning = $getFirstNode($warnings);
             $type    = $getType($warning);
             $text    = (string) $warning;
@@ -138,11 +140,11 @@ abstract class TestCase
                 (float) $node['time'],
                 $type,
                 $text,
-                $systemOutput
+                $systemOutput,
             );
         }
 
-        if (($failures = $node->xpath('failure')) !== []) {
+        if (($failures = $node->xpath('failure')) !== null && $failures !== []) {
             $failure = $getFirstNode($failures);
             $type    = $getType($failure);
             $text    = (string) $failure;
@@ -156,7 +158,7 @@ abstract class TestCase
                 (float) $node['time'],
                 $type,
                 $text,
-                $systemOutput
+                $systemOutput,
             );
         }
 
@@ -165,10 +167,10 @@ abstract class TestCase
             if ((string) $node['class'] !== '') {
                 $text = sprintf(
                     "%s::%s\n\n%s:%s",
-                    $node['class'],
-                    $node['name'],
-                    $node['file'],
-                    $node['line']
+                    (string) $node['class'],
+                    (string) $node['name'],
+                    (string) $node['file'],
+                    (int) $node['line'],
                 );
             }
 
@@ -181,7 +183,7 @@ abstract class TestCase
                 (float) $node['time'],
                 null,
                 $text,
-                $systemOutput
+                $systemOutput,
             );
         }
 
@@ -191,7 +193,7 @@ abstract class TestCase
             (string) $node['file'],
             (int) $node['line'],
             (int) $node['assertions'],
-            (float) $node['time']
+            (float) $node['time'],
         );
     }
 }

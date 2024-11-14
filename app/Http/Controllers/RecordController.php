@@ -88,4 +88,24 @@ class RecordController extends Controller
             'lName'=>$user->lname]);
 
     }
+
+
+    public function listRecords(Request $request)
+    {
+        // Retrieve the sorting parameter (default to 'id' if not provided)
+        $sort = $request->query('sort', 'id');
+        $direction = $request->query('direction', 'asc'); // Default to ascending
+
+        // Validate the sort field and direction
+        $allowedSortFields = ['completion', 'created_at'];
+        $sort = in_array($sort, $allowedSortFields) ? $sort : 'id';
+        $direction = $direction === 'desc' ? 'desc' : 'asc';
+
+        // Retrieve and sort records based on the sorting parameter
+        $records = DB::table('records')->orderBy($sort, $direction)->get();
+
+        // Pass sorted records and current sort settings to the view
+        return view('records.list', ['records' => $records, 'sort' => $sort, 'direction' => $direction]);
+    }
+
 }

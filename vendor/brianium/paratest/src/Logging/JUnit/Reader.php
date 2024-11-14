@@ -20,9 +20,7 @@ use function filesize;
 use function str_repeat;
 use function unlink;
 
-/**
- * @internal
- */
+/** @internal */
 final class Reader implements MetaProviderInterface
 {
     /** @var TestSuite */
@@ -39,7 +37,7 @@ final class Reader implements MetaProviderInterface
 
         if (filesize($logFile) === 0) {
             throw new InvalidArgumentException(
-                "Log file {$logFile} is empty. This means a PHPUnit process has crashed."
+                "Log file {$logFile} is empty. This means a PHPUnit process has crashed.",
             );
         }
 
@@ -53,6 +51,8 @@ final class Reader implements MetaProviderInterface
 
     private function parseTestSuite(SimpleXMLElement $node, bool $isRootSuite): TestSuite
     {
+        assert($node->testsuite !== null);
+
         if ($isRootSuite) {
             foreach ($node->testsuite as $singleTestSuiteXml) {
                 return $this->parseTestSuite($singleTestSuiteXml, false);
@@ -65,6 +65,7 @@ final class Reader implements MetaProviderInterface
             $suites[$testSuite->name] = $testSuite;
         }
 
+        assert($node->testcase !== null);
         $cases = [];
         foreach ($node->testcase as $singleTestCase) {
             $cases[] = TestCase::caseFromNode($singleTestCase);
@@ -82,7 +83,7 @@ final class Reader implements MetaProviderInterface
             (int) $node['tests'],
             (int) $node['assertions'],
             (int) $node['failures'],
-            (int) $node['errors'],
+            (int) $node['errors'] - $risky,
             (int) $node['warnings'],
             $risky,
             (int) $node['skipped'],
